@@ -1,0 +1,30 @@
+.countdown {
+  padding: 10px;
+}
+
+.timings {
+  display: flex;
+  gap: 10px;
+}
+
+.timing {
+  text-align: center;
+}
+
+.name {
+  margin-bottom: 10px;
+}
+
+.box {
+  border-radius: 10px;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 5px 0;
+  margin-bottom: 1px;
+  width: 70px;
+  background-color: var(--bg-gray);
+}
+
+.unit {
+  opacity: 70%;
+}
