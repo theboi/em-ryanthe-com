@@ -1,6 +1,18 @@
-/* Countdown */
 .countdown {
   height: 100px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.inputs {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.content {
+  width: 400px;
 }
 
 .timings {
@@ -28,4 +40,17 @@
 
 .unit {
   opacity: 70%;
+}
+
+.editButton {
+  opacity: 0;
+  height: 40px;
+}
+
+.countdown:hover .editButton {
+  opacity: 0.7;
+}
+
+.plus {
+  margin-right: 10px;
 }

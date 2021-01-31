@@ -1,9 +1,9 @@
-import { count } from "console";
 import { GetServerSidePropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
 import React, { useEffect, useRef, useState } from "react";
 import { Countdown } from "../../components/cd";
-import { Button } from "../../components/global";
+import { ThemeButton } from "../../components/theme";
+import style from "./style.module.css"
 
 declare global {
   interface Date {
@@ -12,7 +12,11 @@ declare global {
 }
 
 Date.prototype.toOffsetISOString = function() {
-  return new Date(this - (new Date()).getTimezoneOffset() * 60000).toISOString()
+  try {
+    return new Date(this - (new Date()).getTimezoneOffset() * 60000).toISOString()
+  } catch {
+    return ""
+  }
 }
 
 export type CountdownValue = [name: string, date: string]
@@ -42,14 +46,17 @@ export default function CountdownCreatePage(props: {
   return (
     <main>
       {didMakeChanges ? (
-        <div onClick={() => {
+        <div className={style.alert} onClick={() => {
           navigator.clipboard.writeText(`${props.url}?${countdowns.map(v => [v[0] || "Untitled", v[1] || now.toOffsetISOString()].join('=')).join('&')}`)
-        }}>Unsaved changes. Click to copy new link.</div>
+        }}>
+          <i className="fas fa-exclamation-triangle" />
+        <p className={style.alertText}>Unsaved changes. Click to copy new link.</p>
+        </div>
       ) : <></>}
       {countdowns.map(([key, value], i) => (
         <Countdown
           isEditing={editIndex === i}
-          onEditClick={() => setEditIndex(i)}
+          onEditClick={() => setEditIndex((current) => current === i ? -1 : i)}
           onChange={value => setCountdowns(countdowns => {
             const newCountdowns = [...countdowns]
             newCountdowns[i] = value
@@ -61,12 +68,12 @@ export default function CountdownCreatePage(props: {
           key={i}
         />
       ))}
-      <Button onClick={() => {
+      <ThemeButton onClick={() => {
         setCountdowns((countdowns) => [...countdowns, ["", now.toOffsetISOString()]])
         setEditIndex(countdowns.length)
-        }}>
-        Add
-      </Button>
+        }} className={style.addButton}>
+        <i className="fas fa-plus"></i><p className={style.addText}>Add</p>
+      </ThemeButton>
     </main>
   );
 }

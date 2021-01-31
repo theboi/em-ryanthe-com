@@ -89,6 +89,20 @@ Reset
   z-index: 100;
 }
 
+input {
+  background-color: var(--bg-gray);
+  color: var(--t-default);
+  border: none;
+  padding: 7px 15px;
+  border-radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+}
+
 html,
 body,
 div,
@@ -199,19 +213,6 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
-}
-
-a {
-  font-style: none;
-  color: var(--link1);
-}
-
-a:hover {
-  color: var(--link2);
-}
-
-a:active {
-  color: var(--link3);
 }
 
 *:focus {

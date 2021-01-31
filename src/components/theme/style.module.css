@@ -1,6 +1,7 @@
 .button {
-  height: 40px;
+  transition: all 150ms ease-in-out;
   border-radius: 5px;
+  padding: 10px;
 }
 
 .button:hover {

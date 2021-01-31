@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { CountdownValue } from "../../pages/cd";
+import { ThemeButton } from "../theme";
 import style from "./style.module.css";
 
 type CountdownTimeUnit = [unit: string, value: number];
@@ -19,24 +20,28 @@ export function Countdown(props: {
   return (
     <div className={style.countdown}>
       {props.isEditing ? (
-        <>
+        <div className={`${style.inputs} ${style.content}`}>
           <input
             type="text"
             ref={nameField}
             placeholder="Name"
             defaultValue={props.name}
-            onChange={() => props.onChange([nameField.current.value, dateField.current.value])}
+            onChange={() =>
+              props.onChange([nameField.current.value, dateField.current.value])
+            }
           />
           <input
             ref={dateField}
             defaultValue={props.till.toOffsetISOString().slice(0, -5)}
             type="datetime-local"
-            onChange={() => props.onChange([nameField.current.value, dateField.current.value])}
+            onChange={() =>
+              props.onChange([nameField.current.value, dateField.current.value])
+            }
           />
-        </>
+        </div>
       ) : (
-        <>
-          <h3 className={style.name}>{props.name || 'Untitled'}</h3>
+        <div className={style.content}>
+          <h3 className={style.name}>{props.name || "Untitled"}</h3>
           <div className={style.timings}>
             {timeLeft.map(([unit, value], i) => (
               <div className={style.timing} key={i}>
@@ -46,10 +51,12 @@ export function Countdown(props: {
                 <p className={style.unit}>{unit}</p>
               </div>
             ))}
-            <p onClick={props.onEditClick}>Edit</p>
           </div>
-        </>
+        </div>
       )}
+      <ThemeButton onClick={props.onEditClick} className={style.editButton}>
+        <i className={props.isEditing ? "fas fa-times" : "fas fa-pen"}></i>
+      </ThemeButton>
     </div>
   );
 }

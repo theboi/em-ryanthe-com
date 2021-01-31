@@ -1,0 +1,22 @@
+.addButton {
+  display: flex;
+  padding: 10px;
+}
+
+.addText {
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+.alert {
+  display: flex;
+  background-color: var(--bg-red);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.alertText {
+  margin-left: 5px;
+  font-weight: 500;
+}
