@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { CountdownValue } from "../../pages/cd";
 import style from "./style.module.css";
 
-type CountdownTimeUnit = [unit: string, value: number]
+type CountdownTimeUnit = [unit: string, value: number];
 
 export function Countdown(props: {
   name: string;
@@ -10,24 +10,33 @@ export function Countdown(props: {
   till: Date;
   isEditing: boolean;
   onEditClick: () => void;
-  onChange: (value: CountdownValue) => void
+  onChange: (value: CountdownValue) => void;
 }) {
   const timeLeft = getTimeLeft(props.now, props.till);
+  const nameField = useRef(null);
+  const dateField = useRef(null);
 
   return (
     <div className={style.countdown}>
       {props.isEditing ? (
         <>
-          <input type="text" placeholder="Name" defaultValue={props.name} onChange={(e) => props.onChange([e.target.value, undefined])}/>
           <input
+            type="text"
+            ref={nameField}
+            placeholder="Name"
+            defaultValue={props.name}
+            onChange={() => props.onChange([nameField.current.value, dateField.current.value])}
+          />
+          <input
+            ref={dateField}
             defaultValue={props.till.toOffsetISOString().slice(0, -5)}
             type="datetime-local"
-            onChange={(e) => props.onChange([undefined, e.target.value])}
+            onChange={() => props.onChange([nameField.current.value, dateField.current.value])}
           />
         </>
       ) : (
         <>
-          <h3 className={style.name}>{props.name}</h3>
+          <h3 className={style.name}>{props.name || 'Untitled'}</h3>
           <div className={style.timings}>
             {timeLeft.map(([unit, value], i) => (
               <div className={style.timing} key={i}>
@@ -49,10 +58,10 @@ const getTimeLeft = (now: Date, date: Date): CountdownTimeUnit[] => {
   const diff = date.getTime() - now.getTime();
 
   return [
-    [ "w", Math.floor(diff / 1000 / 60 / 60 / 24 / 7) ],
-    [ "d", Math.floor((diff / 1000 / 60 / 60 / 24) % 7) ],
-    [ "h", Math.floor((diff / 1000 / 60 / 60) % 24) ],
-    [ "m", Math.floor((diff / 1000 / 60) % 60) ],
-    [ "s", Math.floor((diff / 1000) % 60) ],
+    ["w", Math.floor(diff / 1000 / 60 / 60 / 24 / 7)],
+    ["d", Math.floor((diff / 1000 / 60 / 60 / 24) % 7)],
+    ["h", Math.floor((diff / 1000 / 60 / 60) % 24)],
+    ["m", Math.floor((diff / 1000 / 60) % 60)],
+    ["s", Math.floor((diff / 1000) % 60)],
   ];
 };

@@ -1,6 +1,7 @@
+import { count } from "console";
 import { GetServerSidePropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Countdown } from "../../components/cd";
 import { Button } from "../../components/global";
 
@@ -14,33 +15,44 @@ Date.prototype.toOffsetISOString = function() {
   return new Date(this - (new Date()).getTimezoneOffset() * 60000).toISOString()
 }
 
-export type CountdownValue = [name?: string, date?: string]
+export type CountdownValue = [name: string, date: string]
 
 export default function CountdownCreatePage(props: {
   url: string;
   query: ParsedUrlQuery;
 }) {
-  const [countdowns, setCountdowns] = useState(Object.entries(props.query) as CountdownValue[]);
+  const [countdowns, setCountdowns] = useState((Object.entries(props.query) as CountdownValue[]).flatMap(a => [a[1]].flat().map(b => [a[0], b])));
   const [editIndex, setEditIndex] = useState(-1);
   const [now, setNow] = useState(new Date());
+  const [didMakeChanges, setDidMakeChanges] = useState<boolean>(false)
 
   useEffect(() => {
-    if (Object.keys(props.query).length > 0) {
-      setTimeout(() => {
-        setNow(new Date());
-      }, 1000);
-    }
-  });
+    setInterval(() => {
+      console.log("Hey")
+      setNow(new Date());
+    }, 1000);
+  }, []);
+
+  const initialRender = useRef(true);
+  useEffect(() => {
+    if (initialRender.current) {initialRender.current = false; return;}
+    setDidMakeChanges(true)
+  }, [countdowns])
 
   return (
     <main>
+      {didMakeChanges ? (
+        <div onClick={() => {
+          navigator.clipboard.writeText(`${props.url}?${countdowns.map(v => [v[0] || "Untitled", v[1] || now.toOffsetISOString()].join('=')).join('&')}`)
+        }}>Unsaved changes. Click to copy new link.</div>
+      ) : <></>}
       {countdowns.map(([key, value], i) => (
         <Countdown
           isEditing={editIndex === i}
           onEditClick={() => setEditIndex(i)}
-          onChange={(value) => setCountdowns((countdowns) => {
+          onChange={value => setCountdowns(countdowns => {
             const newCountdowns = [...countdowns]
-            newCountdowns[i] = [value[0] ?? newCountdowns[i][0], value[1] ?? newCountdowns[i][1], ]
+            newCountdowns[i] = value
             return newCountdowns
           })}
           now={now}
