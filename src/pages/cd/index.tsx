@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Countdown } from "../../components/cd";
 import { ThemeButton } from "../../components/theme";
 import style from "./style.module.css"
