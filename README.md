@@ -35,9 +35,9 @@ Before usage, a small side note is that Notion embeds do come at a cost—should
 
 ### bv: Bible Verses
 
-- Navigate to [em.ryanthe.com/bv/`ref`](em.ryanthe.com/bv).
-- `ref` refers to the Bible verse as per stated on http://bible-api.com. E.g. [em.ryanthe.com/bv/psalms 23](em.ryanthe.com/bv/psalms%2023) or [em.ryanthe.com/bv/jonah 1:3](em.ryanthe.com/bv/jonah%201:3)
-- Varying translations can be specified with the `t` query. E.g. [em.ryanthe.com/bv/jonah 1:3?t=web](em.ryanthe.com/bv/psalms%2023?t=web). Default: `kjv`
+- Navigate to [em.ryanthe.com/bv/`ref`](https://em.ryanthe.com/bv).
+- `ref` refers to the Bible verse as per stated on http://bible-api.com. E.g. [em.ryanthe.com/bv/psalms 23](https://em.ryanthe.com/bv/psalms%2023) or [em.ryanthe.com/bv/jonah 1:3](https://em.ryanthe.com/bv/jonah%201:3)
+- Varying translations can be specified with the `t` query. E.g. [em.ryanthe.com/bv/jonah 1:3?t=web](https://em.ryanthe.com/bv/psalms%2023?t=web). Default: `kjv`
 - Currently, the site uses the aforementioned API service which supports a very small subset of translations.
 
 ## Contribution
