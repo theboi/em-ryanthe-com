@@ -31,6 +31,7 @@ Before usage, a small side note is that Notion embeds do come at a cost—should
 - Navigate to `em.ryanthe.com/sb`.
 - To open a link in Notion embeds, right-click and click `Open Link`.
 - The page will open in a new window.
+- This page was created to force the SST students blog page to use mobile view.
 
 ### bv: Bible Verses
 
