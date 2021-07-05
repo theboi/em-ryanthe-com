@@ -1,6 +1,6 @@
 # em-ryanthe-com
 
-Utility embeds for Notion 🔥.
+Utility embeds for Notion. 🔥
 
 ## Motivation
 
