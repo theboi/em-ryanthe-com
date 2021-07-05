@@ -2,7 +2,7 @@ import "./reset.css";
 import style from "./style.module.css";
 import Head from "next/head";
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
@@ -17,5 +17,3 @@ function MyApp({ Component, pageProps }) {
     </>
   );
 }
-
-export default MyApp;

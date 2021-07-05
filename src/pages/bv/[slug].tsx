@@ -4,14 +4,12 @@ import useSWR from "swr";
 export default function BibleVersePage({ slug, t }) {
   const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-  const { data } = useSWR(`https://bible-api.com/${slug}`, fetcher);
+  const { data } = useSWR(`https://bible-api.com/${slug}?translation=${t}`, fetcher);
 
-  console.log(`https://bible-api.com/${slug}?translation=${t}`, data);
-
-  return (<div>
-    <h3>{data?.reference}</h3>
-    <p>
-    {data?.verses.map((v) => `${v?.text.split("\\n").join("")} [${v?.verse}] `)}
+  return (<div style={{ padding: "16px 16px 16px 12px", backgroundColor: "var(--bg-blue)", borderRadius: 3}}>
+    <h3>{data?.reference} ({(data?.translation_id as string)?.toUpperCase()})</h3>
+    <p style={{ lineHeight: 2 }}>
+    {data?.verses.map((v) => <p style={{ display: "inline"}}>{v?.text.split("\\n").join("")} <sub>[{v?.verse}]</sub> </p>)}
     </p>
   </div>);
 }

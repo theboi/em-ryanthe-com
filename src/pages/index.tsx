@@ -12,7 +12,8 @@ export default function Home() {
       <h3>Available paths:</h3>
       <ul>
         <li>cd: Countdown Timer</li>
-        <li>bv: Bible</li>
+        <li>sb: SST Student Blog Proxy</li>
+        <li>bv: Bible Verses</li>
       </ul>
     </div>
   );
